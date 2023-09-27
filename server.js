@@ -15,7 +15,7 @@ app.get("/codeblocks", async (req, res) => {
     res.json(codeblocks);
   } catch (err) {
     console.log(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).send(err);
   }
 });
 
@@ -26,7 +26,7 @@ app.get("/codeblocks/:category", async (req, res) => {
     res.json(codeblocks);
   } catch (err) {
     console.log(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).send(err);
   }
 });
 
@@ -45,7 +45,7 @@ app.post("/codeblocks", async (req, res) => {
     res.json(codeblock);
   } catch (err) {
     console.log(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).send(err);
   }
 });
 
