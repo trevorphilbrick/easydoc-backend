@@ -10,14 +10,24 @@ app.use(express.json());
 
 app.get("/codeblocks", async (req, res) => {
   console.log("attempting to get codeblocks...");
-  const codeblocks = await CodeBlock.find();
-  res.json(codeblocks);
+  try {
+    const codeblocks = await CodeBlock.find();
+    res.json(codeblocks);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Server Error");
+  }
 });
 
 app.get("/codeblocks/:category", async (req, res) => {
   console.log("attempting to get codeblocks by category...");
-  const codeblock = await CodeBlock.find({ category: req.params.category });
-  res.json(codeblock);
+  try {
+    const codeblocks = await CodeBlock.find({ category: req.params.category });
+    res.json(codeblocks);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Server Error");
+  }
 });
 
 app.post("/codeblocks", async (req, res) => {
@@ -30,8 +40,13 @@ app.post("/codeblocks", async (req, res) => {
     tags: req.body.tags,
     category: req.body.category,
   });
-  await codeblock.save();
-  res.json(codeblock);
+  try {
+    await codeblock.save();
+    res.json(codeblock);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Server Error");
+  }
 });
 
 const connectDB = async () => {
@@ -45,4 +60,4 @@ const connectDB = async () => {
 
 connectDB();
 
-app.listen(PORT, () => console.log(`Server running on port 3000`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
