@@ -9,16 +9,19 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 app.get("/codeblocks", async (req, res) => {
+  console.log("attempting to get codeblocks...");
   const codeblocks = await CodeBlock.find();
   res.json(codeblocks);
 });
 
 app.get("/codeblocks/:category", async (req, res) => {
+  console.log("attempting to get codeblocks by category...");
   const codeblock = await CodeBlock.find({ category: req.params.category });
   res.json(codeblock);
 });
 
 app.post("/codeblocks", async (req, res) => {
+  console.log("attempting to post codeblock...");
   const codeblock = new CodeBlock({
     title: req.body.title,
     code: req.body.code,
